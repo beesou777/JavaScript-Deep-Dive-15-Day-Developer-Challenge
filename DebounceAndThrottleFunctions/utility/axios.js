@@ -1,9 +1,11 @@
 import axios from "axios";
-
+/**
+ * Configures the Axios instance for GitHub API with authorization.
+ */
 const api = axios.create({
     baseURL : "https://api.github.com/",
     headers: {
-        'Authorization': `${process.env.GITHUB_TOKEN}`,
+        'Authorization': `token ${process.env.GITHUB_TOKEN}`,
     }
 })
 

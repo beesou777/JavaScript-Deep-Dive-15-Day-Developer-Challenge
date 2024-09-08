@@ -9,7 +9,7 @@
  * debouncedFunc(); // Will not call myFunction until after 1000ms have passed.
  */
 
-export default debouncer(func,delay){
+export default function debouncer(func,delay){
     let timeout;
     return function(...args){
         clearTimeout(timeout)
