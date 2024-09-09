@@ -13,7 +13,7 @@ Here's a summary of the 15-day challenge:
 | **Day** | **Challenge**                                | **Description**                                                                                         | **Status**   |
 |---------|----------------------------------------------|---------------------------------------------------------------------------------------------------------|--------------|
 | Day 1   | Debounce and Throttle Functions              | Implement debounce and throttle functions to handle events efficiently.                                  | Completed  |
-| Day 2   | Custom Event Emitter                         | Build an EventEmitter class to handle custom events (`on()`, `emit()`, `off()`).                         | Not Started  |
+| Day 2   | Custom Event Emitter                         | Build an EventEmitter class to handle custom events (`on()`, `emit()`, `off()`).                         | Completed  |
 | Day 3   | Deep Clone Object                            | Write a function to deep clone an object, handling nested objects, arrays, and other data types.          | Not Started  |
 | Day 4   | Custom Promise Implementation                | Create a simplified version of JavaScript’s Promise class (`then()`, `catch()`, `finally()`).             | Not Started  |
 | Day 5   | Memoization Function                         | Implement memoization to optimize an expensive function (e.g., Fibonacci sequence).                      | Not Started  |

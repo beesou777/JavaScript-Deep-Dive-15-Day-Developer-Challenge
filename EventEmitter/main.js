@@ -9,22 +9,26 @@ const statusDiv = document.getElementById('status');
 const uploadButton = document.getElementById('uploadButton');
 
 
-// Function to simulate file upload
+
+/**
+ * Simulates a file upload by emitting 'uploadProgress' events
+ * with a random progress value between 0 and 100 until it reaches 100.
+ * If the upload is successful (70% chance), it emits an 'uploadComplete' event
+ * with the file name. If the upload fails (30% chance), it emits an 'uploadError' event
+ * with a failure message.
+ * @param {File} file - The file to simulate the upload for.
+ */
 const simulateFileUpload = (file) => {
   let progress = 0;
-
-  // Simulate upload progress using setInterval
   const interval = setInterval(() => {
-    progress += Math.random() * 20;  // Increase progress randomly
+    progress += Math.random() * 20;  
     if (progress > 100) progress = 100;
 
-    // Emit 'uploadProgress' event
     emitter.emit('uploadProgress', progress);
 
     if (progress === 100) {
       clearInterval(interval);
 
-      // Simulate random failure or success
       const isSuccess = Math.random() > 0.2;
       if (isSuccess) {
         statusDiv.textContent = `Uploading ${file.name}...`;
@@ -39,37 +43,92 @@ const simulateFileUpload = (file) => {
 
 
 
-// Event listeners for file input and upload progress
 fileInput.addEventListener('change', (event) => {
   const file = event.target.files[0];
   if (file) {
-    files = file 
+    console.log('Selected file:', file);
   }
 });
 
-// Register listener for 'uploadButton' click
 uploadButton.addEventListener('click', () => {
-    if(fileInput.files[0]) {
-        console.log("thios is the file",fileInput.files[0])
-      emitter.emit('uploadButtonClicked', fileInput.files[0]);
- 
-    }else{
-        console.log("thios is the file",fileInput.files[0])
-      emitter.emit('uploadButtonClicked', null);
-    }
- });
+  const file = fileInput.files[0];
+  if (file) {
+    emitter.emit('uploadButtonClicked', file);
+  } else {
+    emitter.emit('uploadButtonClicked', null);
+  }
+});
 
-// Register listener for 'uploadProgress'
+
+/**
+ * Triggered when the upload button is clicked.
+ * @event uploadButtonClicked
+ * @type {object}
+ * @property {File} file - The selected file.
+ * @example
+ * emitter.on('uploadButtonClicked', (file) => {
+ *   if (file) {
+ *     simulateFileUpload(file);
+ *   } else {
+ *     statusDiv.textContent = 'No file selected.';
+ *     progressBar.style.width = '0%';
+ *   }
+ * });
+ */
+
+emitter.on('uploadButtonClicked', (file) => {
+  if (file) {
+    simulateFileUpload(file);
+  } else {
+    statusDiv.textContent = 'No file selected.';
+    progressBar.style.width = '0%';
+  }
+});
+
+
+/**
+ * Triggered when the file upload progress changes.
+ * @event uploadProgress
+ * @type {object}
+ * @property {number} progress - The current progress value.
+ * @example
+ * emitter.on('uploadProgress', (progress) => {
+ *   console.log(`Upload progress: ${progress}%`);
+ * });
+ */
+
 emitter.on('uploadProgress', (progress) => {
   progressBar.style.width = `${progress}%`;
 });
 
-// Register listener for 'uploadComplete'
+
+/**
+ * Triggered when the file upload is complete.
+ * @event uploadComplete
+ * @type {object}
+ * @property {string} fileName - The name of the uploaded file.
+ * @example
+ * emitter.on('uploadComplete', (fileName) => {
+ *   console.log(`Upload complete: ${fileName}`);
+ * });
+ */
 emitter.on('uploadComplete', (fileName) => {
   statusDiv.textContent = `Upload complete: ${fileName}`;
 });
 
-// Register listener for 'uploadError'
+
+/**
+ * Triggered when the file upload fails.
+ * @event uploadError
+ * @type {object}
+ * @property {string} errorMessage - The error message.
+ * @example
+ * emitter.on('uploadError', (errorMessage) => {
+ *   console.log(`Upload error: ${errorMessage}`);
+ })
+ */
+
+
 emitter.on('uploadError', (errorMessage) => {
   statusDiv.textContent = errorMessage;
   progressBar.style.width = '0%';
