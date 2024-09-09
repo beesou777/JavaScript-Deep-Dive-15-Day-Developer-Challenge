@@ -1,11 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Upload Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .upload-container {
+      max-width: 400px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    #progressBar {
+      width: 100%;
+      height: 20px;
+      background-color: #f3f3f3;
+      margin: 20px 0;
+      position: relative;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    #progress {
+      height: 100%;
+      background-color: #4caf50;
+      width: 0;
+      border-radius: 5px;
+    }
+    #status {
+      font-size: 16px;
+      margin-top: 10px;
+    }
+  </style>
 </head>
 <body>
-    nothing here 
+
+<div class="upload-container">
+  <h1>Upload a File</h1>
+  <input type="file" id="fileInput">
+  <div id="progressBar">
+    <div id="progress"></div>
+  </div>
+  <div id="status">No file uploaded yet</div>
+  <button id="uploadButton">Upload</button>
+</div>
+    <script type="module" src="./EventEmitter/main.js"></script>
 </body>
 </html>
